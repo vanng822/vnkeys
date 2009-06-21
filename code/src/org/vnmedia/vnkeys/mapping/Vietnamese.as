@@ -324,7 +324,7 @@ package org.vnmedia.vnkeys.mapping
 						continue;
 					}
 				} else if (lastLetter == "g") {
-					if (letter == "i" && word.substr(i+1,1) == "a") {
+					if (letter == "i" && this._monophthongs.indexOf(word.substr(i+1,1)) != -1) {
 						this._characterFound.initialConsonants += letter;
 						lastLetter = letter;
 						i++;
