@@ -21,6 +21,7 @@ package org.vnmedia.vnkeys
 	import flash.events.KeyboardEvent;
 	import flash.events.TextEvent;
 	import flash.text.TextField;
+	
 	import org.vnmedia.vnkeys.mapping.IKeyMap;
 	import org.vnmedia.vnkeys.mapping.ReplacedWord;
 	public class KeyConverter implements IKeyConverter
@@ -105,17 +106,18 @@ package org.vnmedia.vnkeys
 			this._field.removeEventListener(TextEvent.TEXT_INPUT,this.replaceWord);
 		}
 		
-		private function convert(e:KeyboardEvent):void
+		public function convert(e:KeyboardEvent):void
 		{
-			trace(e.target.isPrototypeOf(TextField));
 			var wordToConvert:String;
 			this.getKeyMapping().getCurrentKeyMap().registerKey(e);
 			if (!this.getKeyMapping().getCurrentKeyMap().isValidKey()) {
 				return; //if the key we are listening for, continue
 			}
+			trace("over");
 			// run the converting only if we found a ord to convert
 			try {
 				if ((wordToConvert = this.getWordToConvert())) {
+					trace("start converting");
 					this._word = this.getKeyMapping().convert(wordToConvert);
 				}
 			} catch(e:Error) {
@@ -123,13 +125,14 @@ package org.vnmedia.vnkeys
 			}
 		}
 		
-		private function replaceWord(e:TextEvent):void
+		public function replaceWord(e:TextEvent):void
 		{
 			// if nothing to replace, return
 			// The standard input will take over
 			if (!this._word.isReplaced) {
 				return;
 			}
+			trace("KeyConverter.replaceWord()");
 			this._field.replaceText(this.wordStartIndex, this.wordEndIndex,this._word.word);
 			if (!this._word.isReversed) {
 				e.preventDefault();
@@ -142,6 +145,10 @@ package org.vnmedia.vnkeys
 			this._field.setSelection(this._field.caretIndex,this._field.caretIndex);
 		}
 		
+		public function getReplacedWord():ReplacedWord {
+			return this._word.clone();
+		}
+		
 		private function getWordToConvert():String
 		{
 			var word:String = "",char:String, fieldLength:int;
@@ -150,6 +157,7 @@ package org.vnmedia.vnkeys
 			// simple match pattern for none words
 			var numbers:String = "0123456789";
 			// left of the cursor
+			trace(this._field.caretIndex);
 			while(!(char = this._field.text.substr(caretIndex,1)).match(/\s/) && caretIndex > -1) {
 				if (numbers.indexOf(char) != -1) {
 					return "";

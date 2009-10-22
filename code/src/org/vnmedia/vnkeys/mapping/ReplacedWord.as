@@ -66,5 +66,9 @@ package org.vnmedia.vnkeys.mapping
 			this.isReplaced = false;
 			this.isReversed = false;
 		}
+		
+		public function clone():ReplacedWord {
+			return new ReplacedWord(this.word,this.isReplaced,this._isReversed);
+		}
 	}
 }
