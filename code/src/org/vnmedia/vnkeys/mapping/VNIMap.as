@@ -21,7 +21,7 @@ package org.vnmedia.vnkeys.mapping
 	public class VNIMap extends Abstract
 	{		
 		public static const NAME:String = "VNI";
-		public static const LONG_NAME:String = "VNI";
+		public static const LONG_NAME:String = "ON";
 		
 		public function VNIMap()
 		{

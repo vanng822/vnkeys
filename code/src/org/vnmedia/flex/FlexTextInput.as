@@ -1,22 +1,24 @@
-package org.vnmedia.vnkeys
+package org.vnmedia.flex
 {
 	import flash.events.KeyboardEvent;
 	import flash.events.TextEvent;
 	import flash.text.TextField;
 	
-	import mx.controls.TextArea;
+	import mx.controls.TextInput;
 	
+	import org.vnmedia.vnkeys.KeyConverter;
 	import org.vnmedia.vnkeys.mapping.ReplacedWord;
 	import org.vnmedia.vnkeys.mapping.VNIMap;
-
-	public class FlexTextArea extends TextArea
+	
+	public class FlexTextInput extends TextInput
 	{
 		private var converter:KeyConverter;
 		private var cpField:TextField;
 		
 		private var eTextEvent:TextEvent;
+		public var vnkeyType:String = VNIMap.NAME;
 		
-		public function FlexTextArea() {
+		public function FlexTextInput() {
 			super();
 			this.initKeyConveter();
 			this.addEventListener(KeyboardEvent.KEY_UP,this.onKeyUp);
@@ -26,7 +28,11 @@ package org.vnmedia.vnkeys
 		
 		private function initKeyConveter():void {
 			this.cpField = new TextField();
-			this.converter = new KeyConverter(this.cpField, VNIMap.NAME);
+			this.converter = new KeyConverter(this.cpField, this.vnkeyType);
+		}
+		
+		public function getKeyConverter():KeyConverter {
+			return this.converter;
 		}
 		
 		private function onKeyUp(e:KeyboardEvent):void {

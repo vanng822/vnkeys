@@ -21,7 +21,6 @@ package org.vnmedia.vnkeys
 	import org.vnmedia.vnkeys.mapping.IKeyMap;
 	import org.vnmedia.vnkeys.mapping.KeyOff;
 	import org.vnmedia.vnkeys.mapping.ReplacedWord;
-	import org.vnmedia.vnkeys.mapping.VIQRMap;
 	import org.vnmedia.vnkeys.mapping.VNIMap;
 	import org.vnmedia.vnkeys.mapping.Vietnamese;
 	
@@ -49,7 +48,6 @@ package org.vnmedia.vnkeys
 			this._maps = new Array();
 			this.addKeyMap(new KeyOff());
 			this.addKeyMap(new VNIMap());
-			this.addKeyMap(new VIQRMap());
 		}
 		
 		public function set type(oType:String):void

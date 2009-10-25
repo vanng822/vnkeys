@@ -24,6 +24,7 @@ package org.vnmedia.vnkeys
 	
 	import org.vnmedia.vnkeys.mapping.IKeyMap;
 	import org.vnmedia.vnkeys.mapping.ReplacedWord;
+	import org.vnmedia.vnkeys.mapping.VNIMap;
 	public class KeyConverter implements IKeyConverter
 	{
 		protected var _field:TextField;
@@ -113,7 +114,6 @@ package org.vnmedia.vnkeys
 			if (!this.getKeyMapping().getCurrentKeyMap().isValidKey()) {
 				return; //if the key we are listening for, continue
 			}
-			trace("over");
 			// run the converting only if we found a ord to convert
 			try {
 				if ((wordToConvert = this.getWordToConvert())) {
@@ -157,7 +157,6 @@ package org.vnmedia.vnkeys
 			// simple match pattern for none words
 			var numbers:String = "0123456789";
 			// left of the cursor
-			trace(this._field.caretIndex);
 			while(!(char = this._field.text.substr(caretIndex,1)).match(/\s/) && caretIndex > -1) {
 				if (numbers.indexOf(char) != -1) {
 					return "";
@@ -207,7 +206,7 @@ package org.vnmedia.vnkeys
 			var options:Array = new Array;
 			var keyMaps:Array = this.getKeyMapping().getKeyMaps();
 			for each (var keyMap:IKeyMap in keyMaps) {
-				options.push({"key":keyMap.name,"value":keyMap.longName});
+				options.push({"data":keyMap.name,"label":keyMap.longName});
 			}
 			return options;
 		}
